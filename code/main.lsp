@@ -22,29 +22,18 @@
         )
       )
 
-(defun setify (l)
-  (cond
-        ((null l) '())
-        (T (cond
-            ((member (car l) (cdr l)) (makeset (cdr l)))
-            (T (cons (car l) (makeset (cdr l))))
-            )
-           )
-        )
-  )
-
 (defun keyvalue (l x)
   (cond
     ((null l) '())
-    ((equals (car (car l)) x) (car (cdr (car l))))
+    ((equal (car (car l)) x) (car (cdr (car l))))
     (T (keyvalue (cdr l) x))
     )
   )
 
 (defun combinepair (x y)
   (cond
-    ((equal x =) (list y))
-    ((equal y =) (list x))
+    ((equal x '=) (list y))
+    ((equal y '=) (list x))
     (T (keyvalue (keyvalue *pmatrix* x) y))
     )
   )
@@ -52,7 +41,7 @@
 (defun mapsingle (func x l)
   (cond
     ((null l) '())
-    (T (cons (func x (car l)) (mapsingle func x (cdr l))))
+    (T (append (funcall func x (car l)) (mapsingle func x (cdr l))))
     )
   )
 
@@ -64,5 +53,7 @@
   )
 
 (defun combine (l m)
-  (setify (mapcomb combinepair l m))
+  (remove-duplicates (mapcomb #'combinepair l m))
   )
+
+(print (combine '(< >) '(= <)))
