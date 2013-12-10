@@ -1,10 +1,10 @@
-﻿(defvar *inverselist*)
+(defvar *inverselist*)
 (setq *inverselist* '((= =) (< >) (> <) (d di) (di d) (o oi) (oi o) (m mi) (mi m) (s i) (si s) (f fi) (fi f)))
 
 (defun inverse (l)
     (cond
 	((null l) '())
-	(T (cons (keyvalue *inverselist* (car l) (inverse (cdr l))
+	(T (cons (keyvalue *inverselist* (car l)) (inverse (cdr l))))
     )
 )
 
