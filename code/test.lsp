@@ -12,7 +12,9 @@
 (defun keyvalue (l x)
   (cond
     ((null l) '())
-    ((equals (car (car l)) x) (car (cdr (car l))))
+    ((equal (car (car l)) x) (car (cdr (car l))))
     (T (keyvalue (cdr l) x))
     )
   )
+
+(print (inverse '(= < > o)))

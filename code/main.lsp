@@ -56,4 +56,15 @@
   (remove-duplicates (mapcomb #'combinepair l m))
   )
 
-(print (combine '(< >) '(= <)))
+(defun testsingle (l m result)
+ ; (combine l m) <= result ? 
+  )
+
+; a Ankathete
+; g Gegenkathete
+; h Hyperthenuse
+(defun test (a g h)
+  (and (testsingle a g h) (testsingle (inverse h) a g) (testsingle g (inverse h) a))
+  )
+
+; (print (combine '(< >) '(= <)))
