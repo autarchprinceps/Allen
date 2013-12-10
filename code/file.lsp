@@ -1,4 +1,4 @@
-; Einsammeln von Ausdrücken aus einer Datei
+; Einsammeln von AusdrÃ¼cken aus einer Datei
 
 (defvar *extfile*)
 
@@ -10,4 +10,4 @@
 		((EQ Ausdruck STREAM) (CLOSE STREAM))
 		(setq *extfile* (cons Ausdruck *extfile*)))))
 
-; diese liegen anschließend in einer Liste zusammengefasst in der Variable *extfile*
+; diese liegen anschlieÃŸend in einer Liste zusammengefasst in der Variable *extfile*
