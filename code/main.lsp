@@ -1,8 +1,9 @@
-(defvar *r*)
-(setq *r* '(= < > d di o oi m mi s si f fi))
-
-(defun isRelation (x)
-  (cond ((member x *r*) T)))
+; Brauchen wir das?
+;(defvar *r*)
+;(setq *r* '(= < > d di o oi m mi s si f fi))
+;
+;(defun isRelation (x)
+;  (cond ((member x *r*) T)))
 
 (defvar *pmatrix*)
 (setq *pmatrix* 
@@ -21,6 +22,16 @@
         (fi ( (< (<)) (> (>)) (d (< o m d s)) (di (di)) (o (< o m)) (oi (oi di si)) (m (<)) (mi (mi)) (s (< o m)) (si (di)) (f (= f fi)) (fi (fi)) ))
         )
       )
+
+(defvar *inverselist*)
+(setq *inverselist* '((= =) (< >) (> <) (d di) (di d) (o oi) (oi o) (m mi) (mi m) (s i) (si s) (f fi) (fi f)))
+
+(defun inverse (l)
+    (cond
+	((null l) '())
+	(T (cons (keyvalue *inverselist* (car l)) (inverse (cdr l))))
+    )
+)
 
 (defun keyvalue (l x)
   (cond
