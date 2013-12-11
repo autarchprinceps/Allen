@@ -63,19 +63,14 @@
     )
   )
 
-(defun combine (l m)
-  (remove-duplicates (mapcomb #'combinepair l m))
-  )
+(defun combine (l m) (remove-duplicates (mapcomb #'combinepair l m)) )
 
-(defun testsingle (l m result)
- ; (combine l m) <= result ? 
-  )
+(defun testsingle (l m r) (intersection (combine l m) r) )
 
-; a Ankathete
-; g Gegenkathete
-; h Hyperthenuse
 (defun test (a g h)
-  (and (testsingle a g h) (testsingle (inverse h) a g) (testsingle g (inverse h) a))
+  (if (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) a)) T '())
   )
 
-; (print (combine '(< >) '(= <)))
+(print (combine '(< >) '(m o)))
+(print (test '(<) '(=) '(>)))
+(print (test '(< >) '(= o) '(<)))
