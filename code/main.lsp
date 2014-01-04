@@ -19,7 +19,7 @@
         (s ( (< (<)) (> (> oi mi d f)) (d (d)) (di (o di fi)) (o (o)) (oi (oi d f)) (m (m)) (mi (d f oi)) (s (s)) (si (= s si)) (f (d)) (fi (o)) ))
         (si ( (< (<)) (> (>)) (d (> oi mi d f)) (di (di)) (o (di fi o)) (oi (> oi mi)) (m (m)) (mi (>)) (s (= s si)) (si (si)) (f (> oi mi)) (fi (di)) ))
         (f ( (< (< o m d s)) (> (>)) (d (d)) (di (oi di si)) (o (d s o)) (oi (oi)) (m (d s o)) (mi (mi)) (s (d)) (si (oi)) (f (f)) (fi (= f fi)) ))
-        (fi ( (< (<)) (> (>)) (d (< o m d s)) (di (di)) (o (< o m)) (oi (oi di si)) (m (<)) (mi (mi)) (s (< o m)) (si (di)) (f (= f fi)) (fi (fi)) ))
+        (fi ( (< (<)) (> (>)) (d (< o m d s)) (di (di)) (o (o)) (oi (oi di si)) (m (<)) (mi (mi)) (s (< o m)) (si (di)) (f (= f fi)) (fi (fi)) ))
         )
       )
 
@@ -74,3 +74,23 @@
 (print (combine '(< >) '(m o)))
 (print (test '(<) '(=) '(>)))
 (print (test '(< >) '(= o) '(<)))
+
+(print (test '(=) '(fi) '(fi))) ;true
+
+(print (combine '(fi) '(=))) ; (fi)
+(print (test '(fi) '(=) '(fi))) ; hier kommt ein falsches Ergebnis raus!
+
+(print (combine '(d) '(=))) ; (d)
+(print (test '(d) '(=) '(d))) ; hier kommt ein falsches Ergebnis raus!
+
+(print (combine '(< = m) '(oi m fi))) ; von Hand berechnet und doppelt gecheckt soll sein (< o m d s oi fi)
+(print (test '(< = m) '(oi m fi) '(< o m d s oi fi))) ; true, und die Berechnung von Hand stimmt hiermit überein
+
+(print (combine '(fi = >) '(o mi f))) ; von Hand berechnet: (o oi di si f mi > d)
+(print (test '(fi = >) '(o mi f) '(o oi di si f mi > d))) ; true, und die Berechnung von Hand stimmt hiermit überein
+
+(print (combine '(fi = >) '(< = m))) ; von Hand berechnet: (= < > d di o oi m mi s si f fi)
+(print (test '(fi = >) '(< = m) '(= < > d di o oi m mi s si f fi)))
+
+(print (combine '(fi) '(o))) ; is (o)
+(print (test '(fi) '(o) '(o))) ; is true
