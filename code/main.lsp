@@ -91,7 +91,7 @@
 (defun testsingle (l m r) (intersection (combine l m) r) )
 
 (defun test (a g h)
-  (if (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) a)) T '())
+  (if (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) (inverse a))) T '())
   )
 
 (print (combine '(< >) '(m o)))
@@ -101,10 +101,11 @@
 (print (test '(=) '(fi) '(fi))) ;true
 
 (print (combine '(fi) '(=))) ; (fi)
-(print (test '(fi) '(=) '(fi))) ; hier kommt ein falsches Ergebnis raus!
+(print (test '(fi) '(=) '(fi)))
+(print (testsingle '(fi) '(=) '(fi)))
 
 (print (combine '(d) '(=))) ; (d)
-(print (test '(d) '(=) '(d))) ; hier kommt ein falsches Ergebnis raus!
+(print (test '(d) '(=) '(d)))
 
 (print (combine '(< = m) '(oi m fi))) ; von Hand berechnet und doppelt gecheckt soll sein (< o m d s oi fi)
 (print (test '(< = m) '(oi m fi) '(< o m d s oi fi))) ; true, und die Berechnung von Hand stimmt hiermit überein
@@ -117,3 +118,9 @@
 
 (print (combine '(fi) '(o))) ; is (o)
 (print (test '(fi) '(o) '(o))) ; should be true
+
+(print "Tests:")
+(print (test '(<) '(<) '(>))) ; should be false
+(print "false")
+(print (test '(=) '(>) '(fi < mi)))
+(print "")
