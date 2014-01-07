@@ -29,7 +29,7 @@
 (defun keyvalue (l x)
   (cond
     ((null l) '())
-    ((equal (car (car l)) x) (car (cdr (car l))))
+    ((equal (caar l) x) (cadar l))
     (T (keyvalue (cdr l) x))
     )
   )
@@ -103,7 +103,7 @@
 
 ; read from file
 (defvar *lrs*)
-(setq *lrs*)
+(setq *lrs* '())
 (defun r (one two lr)
 	(add one two lr '*lrs*)
 )
@@ -129,15 +129,23 @@
         (T (print "ERROR: wrong parameter name"))
         )
   )
+(defun addi (one two lr) (add two one (inverse lr)))
 ; Liste von Existenzquantor (je eine Hashmap a,g,h -> lr)
 (defvar *lE*)
 (setq *lE* '())
 
 (defun r_exists (one two lr)
-  (cond ((list one) (mapcomb))
-        ((atom one) (mapsingle #'add one lto lr '*lE*))
+  (cond ((list one)
+  			(cond ((list two) (mapcomb #'add one two lr '*lE*))
+  				  ((atom two) (mapsingle #'addi two one lr '*1E*))
+  			)
+  		)
+        ((atom one)
+        	(cond ((list two) (mapsingle #'add one two lr '*lE*))
+        		  ((atom two) (add one two lr '*1E*))
+        	)
         )
   )
-
+)
 ; existenzquantorimplementierung
 
