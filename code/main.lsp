@@ -63,7 +63,7 @@
 (defun test (a g h)
   (if (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) (inverse a))) T '())
   )
-
+(print (keyvalue *pmatrix* '<))
 (print (combine '(< >) '(m o)))
 (print (test '(<) '(=) '(>)))
 (print (test '(< >) '(= o) '(<)))
@@ -192,5 +192,16 @@
     (T (mapsingle #'scomb (allexquantcombinations (cdr l)) (car l)))
     )
   )
+(defun keyvaluetester (key l)
+  (cond
+    ((equal key (car l)) (cdr l))
+    (T '())
+    )
+  )
+(defun keyvalues (l key) (mapsingle #'keyvaluetester key l))
+(defun testcombination (combination)
+  (test (onion (keyvalue *lrs* 'a) (keyvalues combination 'a)) (onion (keyvalue *lrs* 'g) (keyvalues combination)))
+  )
 
 ; TODO optional parameters statt mapcomb2p mapsingle2p
+; TODO allexquantcombinations nicht E! sondern E
