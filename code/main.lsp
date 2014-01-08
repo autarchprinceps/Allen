@@ -25,7 +25,7 @@
 	(T (cons (keyvalue *inverselist* (car l)) (inverse (cdr l))))
     )
 )
-
+; searches for list in l with first element / key = x and returns cdr / value of it
 (defun keyvalue (l x)
   (cond
     ((null l) '())
@@ -33,7 +33,7 @@
     (T (keyvalue (cdr l) x))
     )
   )
-
+; looks up the combination of a pair in the p-matrix
 (defun combinepair (x y)
   (cond
     ((equal x '=) (list y))
@@ -41,29 +41,33 @@
     (T (keyvalue (keyvalue *pmatrix* x) y))
     )
   )
-
+; maps function func over list l with single static parameter x
 (defun mapsingle (func x l)
   (cond
     ((null l) '())
     (T (append (funcall func x (car l)) (mapsingle func x (cdr l))))
     )
   )
-
+; maps function func over all possible combinations of one element out of each list l and list m
 (defun mapcomb (func l m)
   (cond
     ((null l) '())
     (T (append (mapsingle func (car l) m) (mapcomb func (cdr l) m)))
     )
   )
-
+; REPLACETHIS
 (defun combine (l m) (remove-duplicates (mapcomb #'combinepair l m)) )
-
+; tests r for validity with the alternative path being the combination of l and m
 (defun testsingle (l m r) (intersection (combine l m) r) )
-
+; tests given relations for validity in all three directions
+; a = Ankathete    (A -> B)
+; g = Gegenkathete (B -> C)
+; h = Hypothenuse  (A -> C)
 (defun test (a g h)
   (if (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) (inverse a))) T '())
   )
-(print (keyvalue *pmatrix* '<))
+; Tests:
+#|(print (keyvalue *pmatrix* '<))
 (print (combine '(< >) '(m o)))
 (print (test '(<) '(=) '(>)))
 (print (test '(< >) '(= o) '(<)))
@@ -100,14 +104,15 @@
 (print "false")
 (print (inverse '(= < > m mi o oi s si f fi d di)))
 (print '(= > < mi m oi o si s fi f di d))
-
-; read from file
+|#
+; stores converted relations from file
 (defvar *lrs*)
 (setq *lrs* '())
+; REPLACETHIS
 (defun r (one two lr)
 	(add one two lr '*lrs*)
 )
-(print "DEBUG: After r")
+; converts a statement loaded from file and stores it in globalselector
 (defun add (one two lr globalselector)
   (cond ((equal one 'A)
          (cond ((equal two 'B) (setq (eval globalselector) (cons (list 'a lr) (eval globalselector))))
@@ -130,28 +135,32 @@
         (T (print "ERROR: wrong parameter name"))
         )
   )
-(print "DEBUG: After add")
+; inverse add
 (defun addi (one two lr) (add two one (inverse lr)))
-(print "DEBUG: After addi")
 ; Liste von Existenzquantor (je eine Hashmap a,g,h -> lr)
+; list of existential quantifiers
+; each is represented by a list containg two elements:
+; first: key describing  
+; 'a = Ankathete    (A -> B)
+; 'g = Gegenkathete (B -> C)
+; 'h = Hypothenuse  (A -> C)
 (defvar *lE*)
 (setq *lE* '())
-(print "DEBUG: After *1E*")
-
+;TODO optional parameters
 (defun mapsingle2p (func x l p1 p2)
   (cond
     ((null l) '())
     (T (append (funcall func x (car l) p1 p2) (mapsingle func x (cdr l) p1 p2)))
     )
   )
-
+; TODO optional parameters
 (defun mapcomb2p (func l m p1 p2)
   (cond
     ((null l) '())
     (T (append (mapsingle func (car l) m p1 p2) (mapcomb func (cdr l) m p1 p2)))
     )
   )
-
+; sets global variable
 (defun r_exists (one two lr)
   (cond ((list one)
   			(cond ((list two) (mapcomb2p #'add one two lr '*lE*))
@@ -165,17 +174,17 @@
         )
   )
 )
-(print "DEBUG: After r_exists")
-; existenzquantortestimplementierung
-
+; main method
+; evaluates rules in filename
 (defun evaluate (filename)
  (readandload filename)
  (reduce #'or (map 'list #'testcombination (allexquantcombinations *1E*)))
   )
+; encases cons with list 
 (defun wrappedcons (e l)
   (list (cons e l))
   )
-
+; REPLACETHIS
 (defun scomb (l e)
   (cond
     ((null l)
@@ -186,22 +195,33 @@
      )
     )
   )
+; returns list of all possibilities when combining the existential quantifiers
 (defun allexquantcombinations (l)
   (cond
     ((null l) '())
     (T (mapsingle #'scomb (allexquantcombinations (cdr l)) (car l)))
     )
   )
+; returns cdr/value of list l if first element is key
 (defun keyvaluetester (key l)
   (cond
     ((equal key (car l)) (cdr l))
     (T '())
     )
   )
+; applies keyvaluetester to all lists within a list of lists
+; returns list of all cdrs/values of lists with first element = key
 (defun keyvalues (l key) (mapsingle #'keyvaluetester key l))
-(defun testcombination (combination)
-  (test (onion (keyvalue *lrs* 'a) (keyvalues combination 'a)) (onion (keyvalue *lrs* 'g) (keyvalues combination)))
+; returns set union of list s and list of lists l
+(defun onion (s l)
+  (remove-duplicates (append s (reduce #'append l)))
   )
-
+; tests validity of a single combination of possibilities of all existential quantifiers with fixed necessary conditions stored in *lrs*
+(defun testcombination (combination)
+  (test (onion (keyvalue *lrs* 'a) (keyvalues combination 'a)) (onion (keyvalue *lrs* 'g) (keyvalues combination 'h)) (onion (keyvalue *lrs* 'g) (keyvalues combination 'h)))
+  )
 ; TODO optional parameters statt mapcomb2p mapsingle2p
 ; TODO allexquantcombinations nicht E! sondern E
+; TODO readandload
+; TODO reset global vars
+; TODO verletzende Bedingung
