@@ -64,7 +64,7 @@
 ; g = Gegenkathete (B -> C)
 ; h = Hypothenuse  (A -> C)
 (defun test (a g h)
-  (if (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) (inverse a))) T '())
+  (and (testsingle a g h) (testsingle (inverse h) a (inverse g)) (testsingle g (inverse h) (inverse a)))
   )
 ; Tests:
 #|(print (keyvalue *pmatrix* '<))
@@ -159,7 +159,7 @@
     )
   )
 ; sets global variable
-(defun r_exists (one two lr)
+(defun r_exist (one two lr)
   (cond ((list one)
   			(cond ((list two) (mapcomb2p #'add one two lr '*lE*))
   				  ((atom two) (mapsingle2p #'(lambda (a b l) (add b a (inverse l))) two one lr '*1E*))
@@ -228,3 +228,4 @@
 ; TODO verletzende Bedingung
 ; TODO check whether exquant is given
 ; TODO check code add for r_exists, shouldn't a differentiation of quantors be made to be able to decide whether at least one condition of each quantor or at least one globally is tested
+; TODO check whether X->X case is caught

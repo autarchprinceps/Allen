@@ -11,14 +11,24 @@ Umsetzung
 ---------
 
 Existenzquantorkonzept:
+
 Die Existenzbedingung ist erfüllt sobald mindestens eine Lösung gefunden wird, die valide ist.
 Daher ist der Grundgedanke unserer Umsetzung die Ergebnisse der Tests jeder möglichen Lösung durch ein logisches oder zu verknüpfen.
 Ist mehr als ein Existenzquantor angegeben, wird jede mögliche Kombination der möglichen Lösungen getestet.
 Definiert z.B. ein Existenzquantor eine Verbindung von A nach B oder C und ein weiterer eine andere Verbindung von C oder A nach B, so werden die Kombinationen (AB CA), (AB CB), (AB CA CB), (AC CA), (AC CB), (AC CA CB), (AB AC CA), (AB AC CB) und (AB AC CA CB) getestet. Funktioniert mindestens eine, so sind die Existenzbedingung für alle Quantoren erfüllt.
 
-Um diese Menge aller möglichen Kombinationen zu generieren (Funktion allexquantcombinations) wird die Potenzmenge (ausgeschlossen die leere Menge, da ja mindestens eine Möglichkeit erhalten bleiben muss, damit die Existenzbedingung erfüllt ist) des letzen Existenzquantors rekursiv mit der Potenzmenge des jeweils vorherigen Existenzquantors 
+Um diese Menge aller möglichen Kombinationen zu generieren (Funktion allexquantcombinations) wird die Potenzmenge (ausgeschlossen die leere Menge, da ja mindestens eine Möglichkeit erhalten bleiben muss, damit die Existenzbedingung erfüllt ist) des letzen Existenzquantors rekursiv mit der Potenzmenge des jeweils vorherigen Existenzquantors vollständig verknüpft (kartesisches Produkt).
 
 Test einer einzelnen Dreiecksbeziehung:
+
+Jede einzelne Möglichkeit oder die einzige Möglichkeit, wenn kein Existenzquantor angegeben ist, wird getestet (Funktion test), indem alle drei Einzeltests (Funktion testsingle) durchgeführt werden.
+
+Dafür wird die  
+
+Util:
+
+- mapsingle & mapcomb
+- keyvalue/(s)/tester & hashmap
 
 Test
 ----
