@@ -135,8 +135,6 @@
         (T (print "ERROR: wrong parameter name"))
         )
   )
-; inverse add
-(defun addi (one two lr) (add two one (inverse lr)))
 ; Liste von Existenzquantor (je eine Hashmap a,g,h -> lr)
 ; list of existential quantifiers
 ; each is represented by a list containg two elements:
@@ -164,7 +162,7 @@
 (defun r_exists (one two lr)
   (cond ((list one)
   			(cond ((list two) (mapcomb2p #'add one two lr '*lE*))
-  				  ((atom two) (mapsingle2p #'addi two one lr '*1E*))
+  				  ((atom two) (mapsingle2p #'(lambda (a b l) (add b a (inverse l))) two one lr '*1E*))
   			)
   		)
         ((atom one)
@@ -174,32 +172,38 @@
         )
   )
 )
+; Einsammeln von Ausdrücken aus einer Datei
+(defvar *extfile*)
+(setq *extfile* nil)
+
+(DEFUN LOAD_extfile (Dateiname)
+	(LET ((STREAM (OPEN Dateiname :DIRECTION :INPUT)))
+		(DO ((Ausdruck NIL (READ STREAM NIL STREAM)))
+		((EQ Ausdruck STREAM) (CLOSE STREAM))
+		(setq *extfile* (cons Ausdruck *extfile*)))))
+; diese liegen anschließend in einer Liste zusammengefasst in der Variable *extfile*
 ; main method
 ; evaluates rules in filename
 (defun evaluate (filename)
- (readandload filename)
+ (LOAD_extfile filename)
+ (map 'list #'eval (remove-if #'null *extfile*))
  (reduce #'or (map 'list #'testcombination (allexquantcombinations *1E*)))
   )
-; encases cons with list 
-(defun wrappedcons (e l)
-  (list (cons e l))
-  )
-; REPLACETHIS
-(defun scomb (l e)
-  (cond
-    ((null l)
-     (list (list e))
-     )
-    (T
-     (mapsingle #'wrappedcons e l)
-     )
-    )
+; returns the power set of l (except for empty list)
+(defun power (l)
+  (remove-if #'null (reduce #'(lambda (i ps)
+              (append (map 'list #'(lambda (e) (cons i e)) ps) ps)
+        ) l :from-end t :initial-value '(())))
   )
 ; returns list of all possibilities when combining the existential quantifiers
 (defun allexquantcombinations (l)
+  (print "§")
+  (print l)
+  (print (power (car l)))
   (cond
     ((null l) '())
-    (T (mapsingle #'scomb (allexquantcombinations (cdr l)) (car l)))
+    ((equal (length l) 1) (power (car l)))
+    (T (mapcomb #'(lambda (a b) (list (append a b))) (power (car l)) (allexquantcombinations (cdr l))))
     )
   )
 ; returns cdr/value of list l if first element is key
@@ -225,3 +229,4 @@
 ; TODO readandload
 ; TODO reset global vars
 ; TODO verletzende Bedingung
+; TODO check whether exquant is given
