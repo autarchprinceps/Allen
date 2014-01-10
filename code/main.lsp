@@ -148,14 +148,14 @@
 (defun mapsingle2p (func x l p1 p2)
   (cond
     ((null l) '())
-    (T (append (funcall func x (car l) p1 p2) (mapsingle func x (cdr l) p1 p2)))
+    (T (append (funcall func x (car l) p1 p2) (mapsingle2p func x (cdr l) p1 p2)))
     )
   )
 ; TODO optional parameters
 (defun mapcomb2p (func l m p1 p2)
   (cond
     ((null l) '())
-    (T (append (mapsingle func (car l) m p1 p2) (mapcomb func (cdr l) m p1 p2)))
+    (T (append (mapsingle2p func (car l) m p1 p2) (mapcomb2p func (cdr l) m p1 p2)))
     )
   )
 ; sets global variable
