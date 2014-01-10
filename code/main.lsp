@@ -197,9 +197,6 @@
   )
 ; returns list of all possibilities when combining the existential quantifiers
 (defun allexquantcombinations (l)
-  (print "§")
-  (print l)
-  (print (power (car l)))
   (cond
     ((null l) '())
     ((equal (length l) 1) (power (car l)))
@@ -230,3 +227,4 @@
 ; TODO reset global vars
 ; TODO verletzende Bedingung
 ; TODO check whether exquant is given
+; TODO check code add for r_exists, shouldn't a differentiation of quantors be made to be able to decide whether at least one condition of each quantor or at least one globally is tested
