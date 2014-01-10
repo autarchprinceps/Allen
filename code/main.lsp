@@ -195,6 +195,7 @@
   (setq *lE* '())
   (setq *lrs* '())
   (setq *tmp* '())
+  (setq *extfile* '())
   )
 ; main method
 ; evaluates rules in filename
