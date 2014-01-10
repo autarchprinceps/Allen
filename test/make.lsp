@@ -6,4 +6,4 @@
 
 
 ;tests that should fail:
-(if (evaluate "fail/test01.lsp")(print "test1 failed")(print "test1 ok"))
+;(if (evaluate "fail/test01.lsp")(print "test1 failed")(print "test1 ok"))
