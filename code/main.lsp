@@ -1,3 +1,4 @@
+(load "test.lsp")
 (defvar *pmatrix*)
 (setq *pmatrix* 
       '(
@@ -180,17 +181,7 @@
   (setq *lE* (cons *tmp* *lE*))
   (setq *tmp* '())
 )
-; Einsammeln von Ausdrücken aus einer Datei
-(defvar *extfile*)
-(setq *extfile* nil)
-
-(DEFUN LOAD_extfile (Dateiname)
-	(LET ((STREAM (OPEN Dateiname :DIRECTION :INPUT)))
-		(DO ((Ausdruck NIL (READ STREAM NIL STREAM)))
-		((EQ Ausdruck STREAM) (CLOSE STREAM))
-		(setq *extfile* (cons Ausdruck *extfile*)))))
-; diese liegen anschließend in einer Liste zusammengefasst in der Variable *extfile*
-
+; REPLACETHIS
 (defun reset ()
   (setq *lE* '())
   (setq *lrs* '())
@@ -200,12 +191,13 @@
 ; main method
 ; evaluates rules in filename
 (defun evaluate (filename)
- (LOAD_extfile filename)
- (map 'list #'eval (remove-if #'null *extfile*))
- (print "Evaluate")
- (print *lrs*)
- (print *lE*)
- (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*)))
+	(LOAD_extfile filename)
+	(map 'list #'eval (remove-if #'null *extfile*))
+	(cond
+		((null *lE*) (test (keyvalue *lrs* 'k) (keyvalue *lrs* 'g) (keyvalue *lrs* 'h)))
+		(T (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*))))
+	)
+	(reset)
   )
 ; returns the power set of l (except for empty list)
 (defun power (l)
@@ -240,10 +232,4 @@
   (test (onion (keyvalue *lrs* 'k) (keyvalues combination 'k)) (onion (keyvalue *lrs* 'g) (keyvalues combination 'g)) (onion (keyvalue *lrs* 'h) (keyvalues combination 'h)))
   )
 ; TODO optional parameters statt mapcomb2p mapsingle2p
-; TODO allexquantcombinations nicht E! sondern E
-; TODO readandload
-; TODO reset global vars
 ; TODO verletzende Bedingung
-; TODO check whether exquant is given
-; TODO check code add for r_exists, shouldn't a differentiation of quantors be made to be able to decide whether at least one condition of each quantor or at least one globally is tested
-; TODO check whether X->X case is caught

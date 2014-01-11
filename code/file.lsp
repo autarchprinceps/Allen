@@ -9,7 +9,4 @@
 		(DO ((Ausdruck NIL (READ STREAM NIL STREAM)))
 		((EQ Ausdruck STREAM) (CLOSE STREAM))
 		(setq *extfile* (cons Ausdruck *extfile*)))))
-
-(LOAD_extfile "test.lsp")
-(print *extfile*)
 ; diese liegen anschließend in einer Liste zusammengefasst in der Variable *extfile*
