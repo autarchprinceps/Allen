@@ -176,7 +176,7 @@
         	)
         )
   )
-  (setq *lE* (cons *tmp* *lE*))
+  (setq *lE* (remove-if #'null (cons *tmp* *lE*)))
   (setq *tmp* '())
 )
 ; REPLACETHIS
