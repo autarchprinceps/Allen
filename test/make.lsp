@@ -6,6 +6,9 @@
 (reset)
 (if (evaluate "success/success02.lsp") (print "success02 ok")(print "success02 failed"))
 (reset)
+(if (evaluate "success/success03.lsp") (print "success03 ok")(print "success03 failed"))
+(reset)
+
 
 ;tests that should fail:
 (if (evaluate "fail/fail01.lsp")(print "fail01 failed")(print "fail01 ok"))
