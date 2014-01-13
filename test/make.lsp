@@ -8,6 +8,8 @@
 (reset)
 (if (evaluate "success/success03.lsp") (print "success03 ok")(print "success03 failed"))
 (reset)
+(if (evaluate "success/success04.lsp") (print "success04 ok")(print "success04 failed"))
+(reset)
 
 
 ;tests that should fail:
