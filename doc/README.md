@@ -44,11 +44,13 @@ Zum Testen wurde folgendermaßen Vorgegangen:
 Mangels Automatisierungs-Möglichkeit wurden als erstes alle 169 Möglichkeiten der P-Matrix nach dem Vier-Augen-Prinzip überprüft. Anschließend wurden folgende Randbedingungen aufgestellt:
 - Eine  Dreiecksbeziehung sollte logisch korrekt als wahr oder falsch erkannt werden
 - Ein Existenzquantor, der nur eine Beziehung beinhaltet, sollte logisch korrekt je nach Eingabewerten als korrekt oder falsch erkannt werden
-- Ein Existenzquantor, der als ersten Parameter eine Ecke des Dreiecks und als zweiten Parameter mehrere Ecken des Dreiecks beinhaltet, sollte nach den Regeln der Allen-Logik als korrekt oder falsch interpretiert werden
-- Ein Existenzquantor, der mehrere Ecken des Dreiecks im ersten und mehrere Ecken im zweiten Parameter beinhaltet, sollte nach der Allen-Logik als korrekt oder falsch interpretiert werden
+- Ein Existenzquantor, der als ersten Parameter eine Ecke des Dreiecks und als zweiten Parameter mehrere Ecken des Dreiecks beinhaltet, sollte nach den Regeln der Allen-Logik als korrekt oder falsch erkannst werden
+- Ein Existenzquantor, der mehrere Ecken des Dreiecks im ersten und mehrere Ecken im zweiten Parameter beinhaltet, sollte nach der Allen-Logik als korrekt oder falsch erkannt werden
 - Ein Existenzquantor, der mehrere Ecken des Dreiecks im ersten Parameter und nur eine Ecke im zweiten Parameter beinhaltet, sollte nach den Regeln der Allen-Logik als korrekt oder falsch erkannt werden
 - Mehrere Existenzquantoren sollten nach den Regeln der Allen-Logik als korrekt oder falsch erkannt werden
 - Ein Existenzquantor mit einer Beziehung zu sich selbst, wie etwa (r_exist 'A 'A '(X)), wobei X für eine beliebige Beziehung steht, sollte fehlschlagen
- 
 
+Daraus wurden Äquivalenzklassen gebildet und aus jeder Äquivalenzklasse ein Testfall erstellt. Wenn möglich wurden dabei mit einem Testfall mehrere Möglichkeiten abgedeckt. Diese Testfälle wurden mit dem Vier-Augen-Prinzip von Hand durchgerechnet. Anschließend wurde getestet, ob das in LISP umgesetzte Programm die selbe Lösung liefert. 
 
+Folgende Testfälle wurden erstellt:
+fail:

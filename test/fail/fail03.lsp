@@ -1,8 +1,4 @@
-(r 'A 'B '(=))
-(r 'B 'C '(>))
-(r 'A 'C '(fi < mi))
-(r_exist 'B '(A C) '(=));  - hier wird der Existenzquantor eingesetzt
-
-;ist ein bisschen geraten...
-
-; '(=) '(>) '(fi < mi) fails
+(r 'A 'B '(<))
+(r 'B 'C '(<))
+(r 'C 'A '(<))
+(r_exist 'A '(B C) '(d));  - hier wird der Existenzquantor eingesetzt
