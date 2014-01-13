@@ -176,8 +176,6 @@
         	)
         )
   )
-  (print "RE")
-  (print *tmp*)
   (setq *lE* (cons *tmp* *lE*))
   (setq *tmp* '())
 )
