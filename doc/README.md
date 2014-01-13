@@ -30,5 +30,20 @@ Util:
 - mapsingle & mapcomb
 - keyvalue/(s)/tester & hashmap
 
+
 Test
 ----
+Für das Testen des LISP-Programms wurde eine separate Ordnerstruktur erstellt: Im Ordner test/ liegen die Unterordner success/ und fail/ erstellt. Da hoher Automatisierungsgrad beim Testen Entdeckungswahrscheinlichkeit von Fehlern drastisch erhöht und manuellen Fehlern beim Testen vorbeugt, sollte eine eigene Testsuite für die Tests erstellt werden. Hierzu wurden alle Fälle, die erfolgreich sein sollten im Unterordner success/ in einzelne Dateien abgelegt, alle Fälle die fehlschlagen sollten im Ordner fail/. Direkt im Ordner test/ wurde ein makefile (makefile.lsp) erstellt, das sämtliche Tests per Load-Befehl einbindet. 
+
+Zum Testen wurde folgendermaßen Vorgegangen:
+Mangels Automatisierungs-Möglichkeit wurden als erstes alle 169 Möglichkeiten der P-Matrix nach dem Vier-Augen-Prinzip überprüft. Anschließend wurden folgende Randbedingungen aufgestellt:
+- Eine  Dreiecksbeziehung sollte logisch korrekt als wahr oder falsch erkannt werden
+- Ein Existenzquantor, der nur eine Beziehung beinhaltet, sollte logisch korrekt je nach Eingabewerten als korrekt oder falsch erkannt werden
+- Ein Existenzquantor, der als ersten Parameter eine Ecke des Dreiecks und als zweiten Parameter mehrere Ecken des Dreiecks beinhaltet, sollte nach den Regeln der Allen-Logik als korrekt oder falsch interpretiert werden
+- Ein Existenzquantor, der mehrere Ecken des Dreiecks im ersten und mehrere Ecken im zweiten Parameter beinhaltet, sollte nach der Allen-Logik als korrekt oder falsch interpretiert werden
+- Ein Existenzquantor, der mehrere Ecken des Dreiecks im ersten Parameter und nur eine Ecke im zweiten Parameter beinhaltet, sollte nach den Regeln der Allen-Logik als korrekt oder falsch erkannt werden
+- Mehrere Existenzquantoren sollten nach den Regeln der Allen-Logik als korrekt oder falsch erkannt werden
+- Ein Existenzquantor mit einer Beziehung zu sich selbst, wie etwa (r_exist 'A 'A '(X)), wobei X für eine beliebige Beziehung steht, sollte fehlschlagen
+ 
+
+
