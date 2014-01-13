@@ -1,4 +1,4 @@
-(load "test.lsp")
+(load "../code/file.lsp")
 (defvar *pmatrix*)
 (setq *pmatrix* 
       '(
@@ -193,11 +193,13 @@
 (defun evaluate (filename)
 	(LOAD_extfile filename)
 	(map 'list #'eval (remove-if #'null *extfile*))
+    (print "Evaluate")
+    (print *lrs*)
+    (print *lE*)
 	(cond
 		((null *lE*) (test (keyvalue *lrs* 'k) (keyvalue *lrs* 'g) (keyvalue *lrs* 'h)))
 		(T (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*))))
 	)
-	(reset)
   )
 ; returns the power set of l (except for empty list)
 (defun power (l)
