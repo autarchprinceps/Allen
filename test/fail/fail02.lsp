@@ -1,4 +1,3 @@
-; dieser Test sollte auch fehlschlagen, denn B über A nach C und B nach C sind inkonsistent
 (r 'A 'B '(<))
 (r 'B 'C '(< =))
 (r 'A 'C '(>))
