@@ -54,3 +54,8 @@ Daraus wurden Äquivalenzklassen gebildet und aus jeder Äquivalenzklasse ein Te
 
 Folgende Testfälle wurden erstellt:
 fail:
+- fail01: Ein einfache Dreiecksbeziehung, die scheitert. Ein Existenzquantor ist hier nicht enthalten.
+- fail02: Eine einfachache Dreiecksbeziehung, die scheitert. Zusätzlich ein Existenzquantor mit einer Ecke des Dreiecks als erstem Parameter und einer ecke des Dreiecks als zweitem Parameter. Der Existenzquantor ändert jedoch nichts am Scheitern der Prüfung. 
+- fail03: Eine einfache Dreiecksbeziehung, die scheitert. Zusätzlich ein Existenzquantor, der als ersten Parameter eine einzelne Ecke des Dreiecks und als zweite Bedingung die beiden anderen Ecken des Dreiecks bekommt. Trotz der durch den Existenzquantor hinzugefügten Beziehungen, scheitert die Prüfung nach den Regeln der Allen-Logik.
+- fail04: Ein komplexerer Testfall mit prinzipiell gleichem Aufbau wie fail04, aber einer komplexeren Dreiecksbeziehung, um auch das korrekte Zusammenspiel komplexerer Bedigungen zu testen. 
+-  fail05: Eine einfache Dreiecksbeziehung, die für sich alleine scheitert und zusätzlich ein Existenzquantor von einer Ecke des Dreiecks auf sich selbst. Dieser Testfall sollte auch scheitern. 
