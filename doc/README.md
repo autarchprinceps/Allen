@@ -23,7 +23,7 @@ Test einer einzelnen Dreiecksbeziehung:
 
 Jede einzelne Möglichkeit oder die einzige Möglichkeit, wenn kein Existenzquantor angegeben ist, wird getestet (Funktion test), indem alle drei Einzeltests (Funktion testsingle) durchgeführt werden.
 
-Dafür wird die  
+Dafür wird jeweils die Funktion combine aufgerufen und die Schnittmenge gebildet, genau wie es in Allen'sche Zeitlogik auf dem Papier auch passiert. 
 
 Util:
 

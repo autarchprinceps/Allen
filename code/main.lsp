@@ -43,17 +43,17 @@
     )
   )
 ; maps function func over list l with single static parameter x
-(defun mapsingle (func x l)
+(defun mapsingle (func x l &optional p1 p2)
   (cond
     ((null l) '())
-    (T (append (funcall func x (car l)) (mapsingle func x (cdr l))))
+    (T (append (if (and (null p1) (null p2)) (funcall func x (car l)) (funcall func x (car l) p1 p2)) (mapsingle func x (cdr l) p1 p2)))
     )
   )
 ; maps function func over all possible combinations of one element out of each list l and list m
-(defun mapcomb (func l m)
+(defun mapcomb (func l m &optional p1 p2)
   (cond
     ((null l) '())
-    (T (append (mapsingle func (car l) m) (mapcomb func (cdr l) m)))
+    (T (append (mapsingle func (car l) m p1 p2) (mapcomb func (cdr l) m p1 p2)))
     )
   )
 ; REPLACETHIS
@@ -147,31 +147,17 @@
 (setq *lE* '())
 (defvar *tmp*)
 (setq *tmp* '())
-;TODO optional parameters
-(defun mapsingle2p (func x l p1 p2)
-  (cond
-    ((null l) '())
-    (T (append (funcall func x (car l) p1 p2) (mapsingle2p func x (cdr l) p1 p2)))
-    )
-  )
-; TODO optional parameters
-(defun mapcomb2p (func l m p1 p2)
-  (cond
-    ((null l) '())
-    (T (append (mapsingle2p func (car l) m p1 p2) (mapcomb2p func (cdr l) m p1 p2)))
-    )
-  )
 ; sets global variable
 (defun r_exist (one two lr)
   (cond ((listp one)
-  			(cond ((listp two) (mapcomb2p #'add one two lr '*tmp*))
-  				  ((atom two) (mapsingle2p #'(lambda (a b l)
+  			(cond ((listp two) (mapcomb #'add one two lr '*tmp*))
+  				  ((atom two) (mapsingle #'(lambda (a b l)
                                                (add b a (inverse l) '*tmp*)
                                                ) two one lr))
   			)
   		)
         ((atom one)
-        	(cond ((listp two) (mapsingle2p #'add one two lr '*tmp*))
+        	(cond ((listp two) (mapsingle #'add one two lr '*tmp*))
         		  ((atom two) (add one two lr '*tmp*))
         	)
         )
@@ -231,5 +217,4 @@
 (defun testcombination (combination)
   (test (onion (keyvalue *lrs* 'k) (keyvalues combination 'k)) (onion (keyvalue *lrs* 'g) (keyvalues combination 'g)) (onion (keyvalue *lrs* 'h) (keyvalues combination 'h)))
   )
-; TODO optional parameters statt mapcomb2p mapsingle2p
 ; TODO verletzende Bedingung
