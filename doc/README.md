@@ -14,7 +14,7 @@ Existenzquantorkonzept:
 
 Die Existenzbedingung ist erfüllt sobald mindestens eine Lösung gefunden wird, die valide ist.
 Daher ist der Grundgedanke unserer Umsetzung die Ergebnisse der Tests jeder möglichen Lösung durch ein logisches oder zu verknüpfen.
-Ist mehr als ein Existenzquantor angegeben, wird jede mögliche Kombination der möglichen Lösungen getestet.
+Ist mehr als ein Existenzquantor angegeben, wird jede mögliche Kombination der möglichen Lösungen getestet (inklusive der Fälle mit multiplen Anwendungen, da der Existenzquantor nur eine Mindestanforderung beschreibt).
 Definiert z.B. ein Existenzquantor eine Verbindung von A nach B oder C und ein weiterer eine andere Verbindung von C oder A nach B, so werden die Kombinationen (AB CA), (AB CB), (AB CA CB), (AC CA), (AC CB), (AC CA CB), (AB AC CA), (AB AC CB) und (AB AC CA CB) getestet. Funktioniert mindestens eine, so sind die Existenzbedingung für alle Quantoren erfüllt.
 
 Um diese Menge aller möglichen Kombinationen zu generieren (Funktion allexquantcombinations) wird die Potenzmenge (ausgeschlossen die leere Menge, da ja mindestens eine Möglichkeit erhalten bleiben muss, damit die Existenzbedingung erfüllt ist) des letzen Existenzquantors rekursiv mit der Potenzmenge des jeweils vorherigen Existenzquantors vollständig verknüpft (kartesisches Produkt).
@@ -28,7 +28,12 @@ Dafür wird jeweils die Funktion combine aufgerufen und die Schnittmenge gebilde
 Util:
 
 - mapsingle & mapcomb
+
+Zwei sehr häufig genutzte Funktionen, die nicht direkt mit Allen'sche Zeitlogik in Verbindung stehen, sind mapsingle & mapcomb. Mapsingle führt eine Funktion auf jedem Element einer List mit ein bis 3 fixen Parametern aus. Mapcomb baut auf mapsingle auf und führt die gegebene Funktion auf jeder Kombination zweier Listen aus (mit 2 optionalen, fixen Parametern). Beide Funktionen geben als Resultat eine Liste mit den Rückgabewerten der einzelnen Funktionsaufrufe zurück.
+
 - keyvalue/(s)/tester & hashmap
+
+Um z.B. die P-Matrix zu implementieren, wurde auf das Grundprinzip eines Dictionary/Hashmap/Key-Value-Store/... zurückgegriffen, indem eine Liste von 2-Tupeln der Form (key (values)) angelegt und durchsucht wird.
 
 
 Test
