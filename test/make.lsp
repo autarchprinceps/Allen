@@ -19,3 +19,5 @@
 (reset)
 (if (evaluate "fail/fail04.lsp")(print "fail04 failed")(print "fail04 ok"))
 (reset)
+(if (evaluate "fail/fail05.lsp")(print "fail05 failed")(print "fail05 ok"))
+(reset)
