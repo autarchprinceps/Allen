@@ -59,3 +59,11 @@ fail:
 - fail03: Eine einfache Dreiecksbeziehung, die scheitert. Zusätzlich ein Existenzquantor, der als ersten Parameter eine einzelne Ecke des Dreiecks und als zweite Bedingung die beiden anderen Ecken des Dreiecks bekommt. Trotz der durch den Existenzquantor hinzugefügten Beziehungen, scheitert die Prüfung nach den Regeln der Allen-Logik.
 - fail04: Ein komplexerer Testfall mit prinzipiell gleichem Aufbau wie fail04, aber einer komplexeren Dreiecksbeziehung, um auch das korrekte Zusammenspiel komplexerer Bedigungen zu testen. 
 -  fail05: Eine einfache Dreiecksbeziehung, die für sich alleine scheitert und zusätzlich ein Existenzquantor von einer Ecke des Dreiecks auf sich selbst. Dieser Testfall sollte auch scheitern. 
+
+success:
+- success01: Ein einfacher Testfall einer Dreiecksbeziehung, der nach den Regeln der Allen-Logik korrekt ist. Ein existenzquantor ist hier nicht enthalten.
+- success02: Ein einfacher Testfall mit einer Dreiecksbeziehung, die ohne den Existenzquantor nach den Regeln der Allen-Logik scheitern würde, mit den zusätzlichen Bedingungen des Existenzquantors jedoch valide ist. Der Existenzquantor ist ein simpler Existenzquantor mit nur einer einzelnen Beziehung zwischen nur zwei Ecken des Dreiecks.
+- success03: Wie Testfall success02, aber mit einem weiteren Existenzquantor, der Beziehungen zwischen einer Ecke des Dreiecks mit den beiden anderen Ecken des Dreiecks herstellen kann und so das Dreieck nach den Regeln der Allen-Logik konsistent ist.
+- success04: Eine  Existenzquantoren-Bedingung von einer Ecke des Dreiecks zu zwei anderen Ecken des Dreiecks mit mehreren Beziehungen. Zusätzlich ein weiterer Existenzquantor, der von mehreren Ecken des Dreiecks Beziehungen zu mehreren Ecken des Dreiecks herstellen kann.
+
+Durch diese Testfälle konnten alle Möglichkeiten und Randbedingungen der Äquivalenzklassen getestet werden.
