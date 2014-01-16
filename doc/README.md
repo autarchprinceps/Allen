@@ -76,3 +76,6 @@ success:
 - success04: Eine  Existenzquantoren-Bedingung von einer Ecke des Dreiecks zu zwei anderen Ecken des Dreiecks mit mehreren Beziehungen. Zusätzlich ein weiterer Existenzquantor, der von mehreren Ecken des Dreiecks Beziehungen zu mehreren Ecken des Dreiecks herstellen kann.
 
 Durch diese Testfälle konnten alle Möglichkeiten und Randbedingungen der Äquivalenzklassen getestet werden.
+
+Um den Erfolg oder das Scheitern aller Tests auf einen Blick zu sehen, wurde eine Ausgabe erstellt, die erfolgreich ist, wenn alle Tests erfolgreich sind und fehlschlägt, wenn einer der Tests ein anderes als das spezifizierte Ergebnis liefert.
+
