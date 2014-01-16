@@ -36,6 +36,15 @@ Zwei sehr häufig genutzte Funktionen, die nicht direkt mit Allen'sche Zeitlogik
 Um z.B. die P-Matrix zu implementieren, wurde auf das Grundprinzip eines Dictionary/Hashmap/Key-Value-Store/... zurückgegriffen, indem eine Liste von 2-Tupeln der Form (key (values)) angelegt und durchsucht wird.
 
 
+Zur besseren Übersicht in einer Programmiersprache ohne Klassen ist die Implementierung auf mehrere separate Dateien verteilt:
+- allen.lsp: Basisimplementierung Allen'sche Zeitlogik
+- static.lsp: Statische Definitionen (z.B. p-Matrix)
+- file.lsp: Auslesen und Auswerten von Input
+- main.lsp: Zusammenführung durch load und Hauptfunktion
+- quant.lsp: Erweiterung Existenzquantor
+- util.lsp: Nicht direkt mit Allen'scher Zeitlogik zusammenhängende Hilfsfunktionen
+
+
 Test
 ----
 Für das Testen des LISP-Programms wurde eine separate Ordnerstruktur erstellt: Im Ordner test/ liegen die Unterordner success/ und fail/ erstellt. Da hoher Automatisierungsgrad beim Testen Entdeckungswahrscheinlichkeit von Fehlern drastisch erhöht und manuellen Fehlern beim Testen vorbeugt, sollte eine eigene Testsuite für die Tests erstellt werden. Hierzu wurden alle Fälle, die erfolgreich sein sollten im Unterordner success/ in einzelne Dateien abgelegt, alle Fälle die fehlschlagen sollten im Ordner fail/. Direkt im Ordner test/ wurde ein makefile (makefile.lsp) erstellt, das sämtliche Tests per Load-Befehl einbindet. 
