@@ -2,6 +2,7 @@
 (load "../code/main.lsp")
 (defvar *bug*)
 (setq *bug* '())
+(setq *noPrintViolatingConditionFlag* T)
 
 ; tests that should be successful
 (if (evaluate "success/success01.lsp") (print "success01 ok") ((setq *bug* T) (print "success02 failed")))
