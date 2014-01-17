@@ -1,3 +1,7 @@
+(defvar *violatingConditions*)
+(setq *violatingConditions* '())
+
+; does what it says
 (defun inverse (l)
     (cond
 	((null l) '())
@@ -14,11 +18,20 @@
     )
   )
 
-; REPLACETHIS
+; returns the result of combining two list of relations using the allen-p-table
 (defun combine (l m) (remove-duplicates (mapcomb #'combinepair l m)) )
 
 ; tests r for validity with the alternative path being the combination of l and m
-(defun testsingle (l m r) (intersection (combine l m) r) )
+(defun testsingle (l m r) (if (intersection (combine l m) r)
+                             (
+                              T
+                              )
+                             (
+                              (cons r *violatingConditions*)
+                              '()
+                              )
+                            )
+  )
 
 ; tests given relations for validity in all three directions
 ; a = Ankathete    (A -> B)

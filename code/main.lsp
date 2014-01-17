@@ -4,6 +4,10 @@
 (load "../code/util.lsp")
 (load "../code/allen.lsp")
 
+; set this to true if you want a quiet run (e.g. batch testing)
+(defvar *noPrintViolatingConditionFlag*)
+(setq *noPrintViolatingConditionFlag* '())
+
 ; main method
 ; evaluates rules in filename
 (defun evaluate (filename)
@@ -11,7 +15,14 @@
 	(map 'list #'eval (remove-if #'null *extfile*))
 	(cond
 		((null *lE*) (test (keyvalue *lrs* 'k) (keyvalue *lrs* 'g) (keyvalue *lrs* 'h)))
-		(T (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*))))
+		(T
+			(if (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*)))
+			    (if (and (not *noPrintViolatingConditionFlag*) *violatingConditions*) (
+                                               (print "Verletzende Bedingung(en):")
+                                               (print *violatingConditions*)
+                                               ))	
+			)
+		)
 	)
   )
 

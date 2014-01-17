@@ -80,4 +80,5 @@
   (setq *lrs* '())
   (setq *tmp* '())
   (setq *extfile* '())
+  (setq *violatingConditions* '())
   )
