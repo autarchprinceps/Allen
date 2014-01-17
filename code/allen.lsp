@@ -22,14 +22,9 @@
 (defun combine (l m) (remove-duplicates (mapcomb #'combinepair l m)) )
 
 ; tests r for validity with the alternative path being the combination of l and m
-(defun testsingle (l m r) (if (intersection (combine l m) r)
-                             (
-                              T
-                              )
-                             (
-                              (cons r *violatingConditions*)
-                              '()
-                              )
+(defun testsingle (l m r) (let ((resulting (intersection (combine l m) r)))
+                              (if (not resulting) (setq *violatingConditions* (cons r *violatingConditions*)))
+                              resulting
                             )
   )
 

@@ -13,16 +13,18 @@
 (defun evaluate (filename)
 	(LOAD_extfile filename)
 	(map 'list #'eval (remove-if #'null *extfile*))
-	(cond
-		((null *lE*) (test (keyvalue *lrs* 'k) (keyvalue *lrs* 'g) (keyvalue *lrs* 'h)))
-		(T
-			(if (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*)))
-			    (if (and (not *noPrintViolatingConditionFlag*) *violatingConditions*) (
-                                               (print "Verletzende Bedingung(en):")
-                                               (print *violatingConditions*)
-                                               ))	
-			)
-		)
+	(let ((result
+			(cond
+					((null *lE*) (test (keyvalue *lrs* 'k) (keyvalue *lrs* 'g) (keyvalue *lrs* 'h)))
+					(T (reduce #'(lambda (a b) (or a b)) (map 'list #'testcombination (allexquantcombinations *lE*))))
+		 )))
+		(cond
+			((and (not *noPrintViolatingConditionFlag*) *violatingConditions*) 
+		       (print "Verletzende Bedingung/-en")
+		       (print *violatingConditions*)
+	   		)
+	   	)
+	   	result
 	)
   )
 
