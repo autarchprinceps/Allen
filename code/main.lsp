@@ -27,5 +27,3 @@
 	   	result
 	)
   )
-
-; TODO verletzende Bedingung
